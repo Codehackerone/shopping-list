@@ -5,6 +5,7 @@ const path=require('path');
 const {app, BrowserWindow, Menu, ipcMain, dialog}=electron;
 
 let mainWindow;
+let addWindow;
 
 app.on('ready',function(){
     mainWindow=new BrowserWindow({});
@@ -20,6 +21,19 @@ app.on('ready',function(){
     });
 });
 
+function createAddWindow() {
+    addWindow=new BrowserWindow({
+        width:300,
+        height:200,
+        title:'Add Shopping List Item'
+    });
+    addWindow.loadURL(url.format({
+        pathname:path.join(__dirname,'addWindow.html'),
+        protocol:'file:',
+        slashes:true
+    }));
+}
+
 const mainMenuTemplate=[
     {
         label:'File',
@@ -27,7 +41,7 @@ const mainMenuTemplate=[
             {
                 label:'Add Item',
                 click(){
-                    
+                    createAddWindow();
                 }
             },
             {
