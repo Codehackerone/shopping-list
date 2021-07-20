@@ -16,4 +16,13 @@ app.on('ready',function(){
     mainWindow.on('closed',function(){
         mainWindow=null;
     });
+
+    const mainMenu=Menu.buildFromTemplate(mainMenuTemplate);
+    Menu.setApplicationMenu(mainMenu);
 });
+
+const mainMenuTemplate=[
+    {
+        label:'File',
+    }
+]
