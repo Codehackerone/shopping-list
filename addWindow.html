@@ -16,3 +16,16 @@
     </form>
 </body>
 </html>
+<script>
+    const electron = require('electron');
+    const {ipcRenderer} = electron;
+
+    const form=document.querySelector('form');
+    form.addEventListener('submit',submitForm);
+
+    function submitForm(e){
+        e.preventDefault();
+        const shoppingListItem=document.querySelector('#shopping-list-item').value;
+        ipcRenderer.send('add-shopping-list-item',shoppingListItem);
+    }
+</script>
