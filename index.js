@@ -17,7 +17,7 @@ app.on('ready',function(){
     const mainMenu=Menu.buildFromTemplate(mainMenuTemplate);
     Menu.setApplicationMenu(mainMenu);
     mainWindow.on('closed',function(){
-        mainWindow=null;
+        app.quit();
     });
 });
 
@@ -32,6 +32,9 @@ function createAddWindow() {
         protocol:'file:',
         slashes:true
     }));
+    addWindow.on('closed',function(){
+        addWindow=null;
+    });
 }
 
 const mainMenuTemplate=[
@@ -57,3 +60,27 @@ const mainMenuTemplate=[
         ]
     }
 ];
+
+// if(process.platform==='darwin'){
+//     mainMenuTemplate.unshift({});
+// }
+
+
+if(process.env.NODE_ENV!=='production'){
+    mainMenuTemplate.push({
+        label:'Developer Tools',
+        submenu:[
+            {
+                label:'Toggle Developer Tools',
+                accelerator:process.platform==='darwin'?'Command+Alt+I':'Ctrl+Alt+I',
+                click(item,focusedWindow){
+                    focusedWindow.toggleDevTools();
+                }
+            },
+            {
+                label:'Reload',
+                accelerator:process.platform==='darwin'?'Command+R':'Ctrl+R',
+            }
+        ]
+    });
+}
