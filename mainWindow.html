@@ -8,5 +8,19 @@
 </head>
 <body>
     <h1>Shopping List</h1>
+    <ul></ul>
 </body>
 </html>
+<script>
+    const electron = require('electron');
+    const {ipcRenderer} = electron;
+    const ul=document.querySelector('ul');
+
+    ipcRenderer.on('add-shopping-list-item', function(event, item) {
+        const li=document.createElement('li');
+        const itemText=document.createTextNode(item);
+        li.appendChild(itemText);
+        ul.appendChild(li);
+    });
+
+</script>

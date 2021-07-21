@@ -38,7 +38,6 @@ function createAddWindow() {
 }
 
 ipcMain.on('add-shopping-list-item',function(event,arg){
-    console.log(arg);
     mainWindow.webContents.send('add-shopping-list-item',arg);
     addWindow.close();
 });
